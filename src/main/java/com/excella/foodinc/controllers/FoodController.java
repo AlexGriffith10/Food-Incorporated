@@ -2,6 +2,7 @@ package com.excella.foodinc;
 
 import java.util.HashMap;
 import java.util.Map;
+import reactor.core.publisher.Mono;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,7 +32,7 @@ public class FoodController {
     }
 
     @RequestMapping(value="/nutrition")
-    public Food food(@RequestParam(value="food", defaultValue="apple") String name) {
-        return foodRepo.get(name);
+    public Mono<Food> getFood(@RequestParam(value="food", defaultValue="apple") String name) {
+        return Mono.just(foodRepo.get(name));
     }
 }

@@ -19,7 +19,7 @@ public class FoodController {
         apple.setCalories(95);
         apple.setFat(0);
         apple.setProtein(0);
-        apple.setCarbs(0);
+        apple.setCarbs(5);
         foodRepo.put(apple.getName(), apple);
 
         Food pizza = new Food();

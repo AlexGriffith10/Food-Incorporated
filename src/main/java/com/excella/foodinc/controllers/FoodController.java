@@ -1,38 +1,22 @@
-package com.excella.foodinc;
+package com.excella.foodinc.controllers;
 
-import java.util.HashMap;
-import java.util.Map;
-import reactor.core.publisher.Mono;
+
+import com.excella.foodinc.models.Food;
+import com.excella.foodinc.services.FoodService;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
 
 @RestController
 public class FoodController {
 
-    private static Map<String, Food> foodRepo = new HashMap<>();
-
-    static {
-        Food apple = new Food();
-        apple.setName("apple");
-        apple.setCalories(95);
-        apple.setFat(0);
-        apple.setProtein(0);
-        apple.setCarbs(5);
-        foodRepo.put(apple.getName(), apple);
-
-        Food pizza = new Food();
-        pizza.setName("pizza");
-        pizza.setCalories(200);
-        pizza.setFat(20);
-        pizza.setProtein(5);
-        pizza.setCarbs(30);
-        foodRepo.put(pizza.getName(), pizza);
-    }
+    private FoodService foodService = new FoodService();
 
     @RequestMapping(value="/nutrition")
     public Mono<Food> getFood(@RequestParam(value="food", defaultValue="apple") String name) {
-        return Mono.just(foodRepo.get(name));
+        foodService.initialize();
+        return Mono.just(foodService.findFood(name));
     }
 }

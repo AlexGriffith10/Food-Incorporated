@@ -7,16 +7,17 @@ import com.excella.foodinc.services.FoodService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
 import reactor.core.publisher.Mono;
 
 @RestController
 public class FoodController {
 
-    private FoodService foodService = new FoodService();
+    @Autowired
+    private FoodService foodService;
 
     @RequestMapping(value="/nutrition")
     public Mono<Food> getFood(@RequestParam(value="food", defaultValue="apple") String name) {
-        foodService.initialize();
-        return Mono.just(foodService.findFood(name));
+        return foodService.findFood(name);
     }
 }

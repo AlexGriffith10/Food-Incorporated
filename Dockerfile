@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM ubuntu:18.10
 
 # For install steps
 USER root
@@ -15,13 +15,13 @@ RUN add-apt-repository --yes ppa:openjdk-r/ppa \
     && echo openjdk-11-jdk shared/accepted-oracle-license-v1-2 select true | debconf-set-selections
 
 #<TODO: INTSTALL OPENJDK-11-JDK HERE>
-RUN sudo apt-get install -y openjdk-11-jdk
+RUN apt-get install -y openjdk-11-jdk
 #<TODO: INSTALL ORACLE-JAVA11-SET-DEFAULT HERE>
 
 RUN  apt-get update \
      && apt-get install -y wget
 
-RUN sudo update-ca-certificates && \
+RUN update-ca-certificates && \
     wget -q https://services.gradle.org/distributions/gradle-4.10.2-bin.zip && \
     unzip gradle-4.10.2-bin.zip -d /opt && \
     rm gradle-4.10.2-bin.zip
